@@ -25,6 +25,9 @@ def main():
     operation = input("Enter the number of the operation (1/2/3): ")
 
     if operation == '1':
+        print("Matrix 1 dimensions:", len(matrix1.data), "x", len(matrix1.data[0]))
+        print("Matrix 2 dimensions:", len(matrix2.data), "x", len(matrix2.data[0]))
+
         result = matrix1 + matrix2
     elif operation == '2':
         result = matrix1 - matrix2
