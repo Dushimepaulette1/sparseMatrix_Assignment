@@ -1,53 +1,43 @@
-#!/usr/bin/env python3
-"""
-Main script to perform operations on sparse matrices.
-"""
-
-import sys
-from sparse_matrix import SparseMatrix
-
-def main():
-    if len(sys.argv) != 3:
-        print("Usage: python main.py <matrix1_path> <matrix2_path>")
-        return
-
-    matrix1_path = sys.argv[1]
-    matrix2_path = sys.argv[2]
-
-    matrix1 = SparseMatrix.load(matrix1_path)
-    matrix2 = SparseMatrix.load(matrix2_path)
-    print("Matrix 1 dimensions:", matrix1.numRows, "x", matrix1.numCols)
-    print("Matrix 2 dimensions:", matrix2.numRows, "x", matrix2.numCols)
-
-    print("Choose an operation to perform:")
-    print("1. Addition")
-    print("2. Subtraction")
-    print("3. Multiplication")
-
-    operation = input("Enter the number of the operation (1/2/3): ")
-
-    if operation in ["1", "2"]:
-        # Addition or Subtraction
-        if matrix1.numRows != matrix2.numRows or matrix1.numCols != matrix2.numCols:
-            print("Error: Matrices must have the same dimensions for addition/subtraction.")
-            return
-
-    if operation == '1':
-        result = matrix1 + matrix2
-    elif operation == '2':
-        result = matrix1 - matrix2
-    elif operation == '3':
-        # Check dimensions for multiplication
-        if matrix1.numCols != matrix2.numRows:
-            print("Error: For multiplication, Matrix 1's columns must match Matrix 2's rows.")
-            return
-        result = matrix1 * matrix2
-    else:
-        print("Unknown operation. Please enter 1, 2, or 3.")
-        return
-
-    result.to_file("results.txt")
-    print("The result has been written to results.txt")
+from sparse_matrix import CompressedMatrix
 
 if __name__ == "__main__":
-    main()
+    try:
+        print("Choose an operation to perform:")
+        print("1. Addition")
+        print("2. Subtraction")
+        print("3. Multiplication")
+        print("4 for Fetching a value")
+        user_choice = int(input("Enter the number of the operation (1/2/3): "))
+       
+        
+        file1_path = input("Provide first matrix file path: ")
+        file2_path = input("Provide second matrix file path: ")
+        
+        matrix_a = CompressedMatrix(file1_path)
+        matrix_b = CompressedMatrix(file2_path)
+        
+        if user_choice == 1:
+            outcome = matrix_a.combine(matrix_b)
+        elif user_choice == 2:
+            outcome = matrix_a.subtract(matrix_b)
+        elif user_choice == 3:
+            outcome = matrix_a.multiply(matrix_b)
+        elif user_choice == 4:
+            row_val = int(input("Specify row: "))
+            col_val = int(input("Specify column: "))
+            file_selection = int(input("Select matrix (1 or 2): "))
+            
+            if file_selection == 1:
+                outcome = matrix_a.fetch_value(row_val, col_val)
+            elif file_selection == 2:
+                outcome = matrix_b.fetch_value(row_val, col_val)
+            else:
+                outcome = matrix_a.fetch_value(row_val, col_val)
+        else:
+            raise ValueError("Invalid selection")
+        
+        print("Output:")
+        print(outcome)
+        
+    except Exception as error:
+        print(f"Error encountered: {error}")
