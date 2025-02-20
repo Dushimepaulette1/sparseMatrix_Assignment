@@ -47,4 +47,4 @@ python main.py sample_inputs/matrixfile1.txt sample_inputs/matrixfile2.txt
 
 ## Output
 
-The result of the operation will be saved to a file named `results.txt` in the current directory.
+The result of the operation will be displayed on the screen
