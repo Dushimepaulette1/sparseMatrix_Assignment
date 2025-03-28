@@ -34,10 +34,16 @@ cols=<number_of_columns>
 2. Run the main script with two matrix files as arguments. For example, to add two matrices:
 
 ```bash
-python main.py sample_inputs/matrixfile1.txt sample_inputs/matrixfile2.txt
+python main.py
 ```
 
-3. Choose the desired operation (addition, subtraction, or multiplication) when prompted.
+Choose the desired operation when prompted:
+
+1 for Addition
+
+2 for Subtraction
+
+3 for Multiplication
 
 ## Operations
 
@@ -45,6 +51,51 @@ python main.py sample_inputs/matrixfile1.txt sample_inputs/matrixfile2.txt
 - **Subtraction (2)**: Subtracts the second matrix from the first.
 - **Multiplication (3)**: Multiplies two sparse matrices.
 
+## File Paths
+
+The script processes matrices from predefined input files:
+Addition & Subtraction: easy_sample_02_1.txt and easy_sample_02_2.txt
+Multiplication: easy_sample_02_1.txt and easy_sample_02_3.txt
+
+## Changing Input Files
+
+If you want to use different matrix files, update the file paths in main.py:
+
+```bash
+matrix_a = CompressedMatrix('path/to/your_matrix1.txt')
+matrix_b = CompressedMatrix('path/to/your_matrix2.txt')
+```
+
+Alternatively, modify the script to accept file paths as command-line arguments instead of using predefined files.
+
 ## Output
 
-The result of the operation will be displayed on the screen
+The result of the operation will be displayed on the screen and saved to a file in the results directory. The output filename is generated based on the operation performed:
+
+Addition → result_addition.txt
+
+Subtraction → result_subtraction.txt
+
+Multiplication → result_multiplication.txt
+
+## Example Output
+
+Choose an operation to perform:
+
+1. Addition
+2. Subtraction
+3. Multiplication
+   Enter the number of the operation (1/2/3): 1
+   Saving file to : ./results/result_addition.txt
+
+## Error Handling
+
+If an invalid operation is chosen or an error occurs while processing the matrices, an error message will be displayed:
+
+```bash
+Error encountered: Invalid selection
+```
+
+## NB:
+
+Ensure that the input files exist and follow the correct format before running the script.
